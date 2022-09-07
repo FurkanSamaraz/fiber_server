@@ -1,0 +1,15 @@
+pipelin{
+    agent any
+    stages{
+        stage("Jenkins CI/CD"){
+            steps{
+                sh '''
+                docker build --pull -t app:$BUILD_NUMBER flash_server/main/.
+                docker run -d -p 80:80 app:$BUILD_NUMBER 
+                rm -rf *
+                '''
+            }
+        }
+        
+    }
+}
